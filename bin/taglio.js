@@ -86,7 +86,7 @@ function status() {
 
 const help = `taglio ${VERSION}: slice part of your running app, add a note, send both to your terminal.
 
-  npx taglio init       set it up in this project (run once)
+  npx @taglio/cli init  set it up in this project (run once)
   npx taglio watch      connect the page to this terminal and print its notes
   npx taglio status <id> <processing|done|failed> [message]
 

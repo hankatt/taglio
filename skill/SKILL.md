@@ -25,7 +25,7 @@ Run everything from the project root.
    - If it says the port is taken, another session may already be watching this project. Say so,
      and don't start a second one.
    - If it says `taglio` can't be found, taglio isn't set up in this project: suggest
-     `npx taglio init`.
+     `npx @taglio/cli init`.
 2. Notes sent before you connected waited in the browser, or were saved and never handled; both
    arrive as soon as the watch starts. When the Monitor ends and the user is still working, start
    it again.

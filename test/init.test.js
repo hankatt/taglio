@@ -25,7 +25,7 @@ test('Vite: loads the pencil from the entry index.html names, in development onl
   })
   const { port } = init(root, quiet)
   const main = read(root, 'src/main.tsx')
-  assert.match(main, /if \(import\.meta\.env\.DEV\) import\('taglio'\)\.then\(\(\{ mount \}\) => mount\(\{ port: \d+ \}\)\)/)
+  assert.match(main, /if \(import\.meta\.env\.DEV\) import\('@taglio\/cli'\)\.then\(\(\{ mount \}\) => mount\(\{ port: \d+ \}\)\)/)
   assert.equal(port, portFor('vite-app'))
   assert.equal(JSON.parse(read(root, 'package.json')).taglio.port, port)
   assert.match(read(root, '.gitignore'), /^\.taglio\/$/m)

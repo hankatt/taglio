@@ -10,7 +10,7 @@ This is a prototype, tested in the iOS Simulator and on an iPhone over Wi-Fi.
 
 ## Set up
 
-In the folder with your `.xcodeproj`, run `npx taglio init`. It adds the package to
+In the folder with your `.xcodeproj`, run `npx @taglio/cli init`. It adds the package to
 your app target and this to your `App`'s `init()`:
 
 ```swift

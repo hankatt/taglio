@@ -2,13 +2,22 @@
 
 Point at your running app instead of describing it.
 
-Press the pencil in the corner of your app, drag round the part you mean, type a note and press
-Enter. taglio sends the note to your terminal with a picture of that slice and the elements under
-it: their selectors, text and computed styles. In Claude Code, the `/taglio` command picks each note
-up, makes the change, and the tray beside the pencil shows the note go from Sent to Processing to
-Done.
+Slice the part of the screen you mean, write a note, and taglio sends it to your terminal with a
+picture of the slice and the elements under it. In Claude Code, the `/taglio` command picks each
+note up and makes the change, and your app shows the note go from Sent to Processing to Done.
 
-taglio runs only on your machine and only in development. It never ships in a production build.
+- **Web apps** in React, Vue, Svelte, Next.js or plain HTML. Press the pencil in the corner. Notes
+  carry each element's selector, text and computed styles.
+- **iOS apps** in SwiftUI or UIKit. Hold three fingers on the screen, in the simulator or on your
+  iPhone. Notes carry each element's accessibility label, identifier and frame.
+
+```sh
+npx @taglio/cli init
+```
+
+taglio runs only on your machine and only in development builds. It never ships in a production
+build. taglio itself sends nothing over the internet, and notes stay in your project's `.taglio/`
+folder until Claude Code reads them.
 
 ## Set up
 
@@ -20,7 +29,7 @@ need Node 18 or later and Claude Code.
 In your project's folder:
 
 ```sh
-npx taglio init
+npx @taglio/cli init
 ```
 
 `init` installs taglio as a dev dependency, finds your framework and loads the pencil in the
@@ -43,7 +52,7 @@ terminal as soon as it connects.
 In the folder with your `.xcodeproj`:
 
 ```sh
-npx taglio init
+npx @taglio/cli init
 ```
 
 `init` adds the Taglio Swift package to your app target, starts it in your `App`'s `init()` behind
@@ -63,8 +72,9 @@ to install the app. A release build gets an empty module. See [ios/README.md](io
 
 ## Without Claude Code
 
-`npx taglio watch` connects the page to any terminal. In a terminal you read, it prints each note
-with the paths to its details and picture. When another program reads its output, it prints one
+`npx taglio watch` connects the page to any terminal. In an Xcode project, which has no
+`package.json` to install taglio into, use `npx @taglio/cli watch` and `npx @taglio/cli status`
+instead. In a terminal you read, it prints each note with the paths to its details and picture. When another program reads its output, it prints one
 line of JSON per note:
 
 ```json
@@ -92,7 +102,7 @@ If `init` can't find a web app's entry, add this to the code that runs first in 
 the port from `package.json`'s `taglio.port`:
 
 ```js
-if (process.env.NODE_ENV === 'development') import('taglio').then(({ mount }) => mount({ port: 4519 }))
+if (process.env.NODE_ENV === 'development') import('@taglio/cli').then(({ mount }) => mount({ port: 4519 }))
 ```
 
 For a page you don't build, `taglio watch` also serves the overlay as a script:

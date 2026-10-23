@@ -1,6 +1,6 @@
 {
-  "name": "taglio",
-  "version": "0.1.0",
+  "name": "@taglio/cli",
+  "version": "0.1.1",
   "description": "Slice part of your running app, add a note, and send both to your terminal, where Claude Code picks it up and makes the change.",
   "license": "MIT",
   "author": "Henrik Wiberg",
@@ -19,6 +19,9 @@
     "screenshot",
     "devtools"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "bin": {
     "taglio": "bin/taglio.js"

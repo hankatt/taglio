@@ -1,8 +1,8 @@
 // taglio in the page. Call mount() from your app's entry in development:
 //
-//   if (import.meta.env.DEV) import('taglio').then(({ mount }) => mount({ port: 4519 }))
+//   if (import.meta.env.DEV) import('@taglio/cli').then(({ mount }) => mount({ port: 4519 }))
 //
-// `npx taglio init` writes this for you. mount() does nothing outside a
+// `npx @taglio/cli init` writes this for you. mount() does nothing outside a
 // browser, so a server render can import this module safely, and the overlay
 // itself only loads once it's called.
 
