@@ -1,0 +1,53 @@
+{
+  "name": "taglio",
+  "version": "0.1.0",
+  "description": "Slice part of your running app, add a note, and send both to your terminal, where Claude Code picks it up and makes the change.",
+  "license": "MIT",
+  "author": "Henrik Wiberg",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hankatt/taglio.git"
+  },
+  "homepage": "https://github.com/hankatt/taglio#readme",
+  "keywords": [
+    "claude",
+    "claude-code",
+    "react",
+    "vite",
+    "nextjs",
+    "feedback",
+    "screenshot",
+    "devtools"
+  ],
+  "type": "module",
+  "bin": {
+    "taglio": "bin/taglio.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./client/index.d.ts",
+      "default": "./client/index.js"
+    },
+    "./overlay": "./client/overlay.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "bin",
+    "client",
+    "lib",
+    "skill",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test 'test/**/*.test.js'"
+  },
+  "dependencies": {
+    "modern-screenshot": "^4.7.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "types": "./client/index.d.ts"
+}
