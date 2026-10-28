@@ -93,6 +93,8 @@ test('an Xcode project: adds the package and the start line, and needs no port',
   assert.equal(found.kind, 'ios')
   const pbx = read(root, 'MyApp.xcodeproj/project.pbxproj')
   assert.match(pbx, /repositoryURL = "https:\/\/github.com\/hankatt\/taglio";/)
+  const version = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version
+  assert.ok(pbx.includes(`requirement = {\n\t\t\t\tkind = upToNextMinorVersion;\n\t\t\t\tminimumVersion = ${version};\n\t\t\t};`))
   assert.match(pbx, /packageReferences = \(\n\t\t\t\t\w{24} \/\* XCRemoteSwiftPackageReference "taglio" \*\/,/)
   assert.match(pbx, /packageProductDependencies = \(\n\t\t\t\t\w{24} \/\* Taglio \*\/,/)
   assert.match(pbx, /files = \(\n\t\t\t\t\w{24} \/\* Taglio in Frameworks \*\/,/)
@@ -122,4 +124,25 @@ test('an Xcode project: an App with its own init() gets the start line inside it
   const root = project({ 'MyApp.xcodeproj/project.pbxproj': FIXTURE, 'MyApp/MyAppApp.swift': source })
   init(root, quiet)
   assert.match(read(root, 'MyApp/MyAppApp.swift'), /    init\(\) \{\n        \/\/ taglio[\s\S]*?        #endif\n        setUp\(\)\n/)
+})
+
+test('a UIKit app: the start line goes first in didFinishLaunchingWithOptions', () => {
+  const delegate = [
+    'import UIKit',
+    '',
+    '@main',
+    'class AppDelegate: UIResponder, UIApplicationDelegate {',
+    '',
+    '    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {',
+    '        // Override point for customization after application launch.',
+    '        return true',
+    '    }',
+    '}',
+    ''
+  ].join('\n')
+  const root = project({ 'MyApp.xcodeproj/project.pbxproj': FIXTURE, 'MyApp/AppDelegate.swift': delegate })
+  init(root, { install: false, log: () => {} })
+  const app = read(root, 'MyApp/AppDelegate.swift')
+  assert.match(app, /^import UIKit\nimport Taglio\n/)
+  assert.match(app, /-> Bool \{\n        \/\/ taglio[\s\S]*?\n        #if DEBUG\n        Taglio\.start\(\)\n        #endif\n        \/\/ Override point/)
 })
